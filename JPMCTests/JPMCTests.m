@@ -172,7 +172,6 @@
     //clearing contents of file if file exists
     [OCRReader clearContentsOfFile];
     
-    
 }
 
 @end
