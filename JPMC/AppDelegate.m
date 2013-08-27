@@ -32,8 +32,18 @@
         {
             //fixes illegal character
             accountNumberArray = [OCRReader fixByCheckSum:accountNumberArray];
-            //converts array to string and writes to file
-            [OCRReader writeAllAccountNumbersToTextFile:[OCRReader accountNumerToString:accountNumberArray]];
+            //checking for ILL if it cannot fix
+            if([OCRReader isILL:accountNumberArray])
+            {
+                //converts array to string and writes to file with ILL status
+                writeAccountNumbers = [[NSMutableString alloc]initWithFormat:@"%@ ILL",[OCRReader accountNumerToString:accountNumberArray]];
+                [OCRReader writeAllAccountNumbersToTextFile:writeAccountNumbers];
+                writeAccountNumbers = nil;
+            }else
+            {
+                //converts array to string and writes to file
+                [OCRReader writeAllAccountNumbersToTextFile:[OCRReader accountNumerToString:accountNumberArray]];
+            }
         }else //checks for invalid checkSum
         {
             //finds the number/numbers with valid checkSum and only one difference
