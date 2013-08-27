@@ -236,16 +236,30 @@ static NSArray *constArray;
 + (NSArray *)fixByCheckSum:(NSArray *)accountNumber
 {
     NSMutableArray *tempArray = [[NSMutableArray alloc]initWithArray:accountNumber];
-    int index = [tempArray indexOfObject:@"?"];
-    for (int i=0; i<10; i++)
+    int illegalChars=0;
+    for (int i=0; i<[tempArray count]; i++)
     {
-        [tempArray replaceObjectAtIndex:index withObject:[NSNumber numberWithInt:i]];
-        if ([self isValidCheckSum:tempArray])
+        if([[tempArray objectAtIndex:i]isEqual:@"?"])
         {
-            return [NSArray arrayWithArray:tempArray];
+            illegalChars++;
         }
     }
-    return accountNumber;
+    if (illegalChars>1)
+    {
+        return accountNumber;
+    }else
+    {
+        int index = [tempArray indexOfObject:@"?"];
+        for (int i=0; i<10; i++)
+        {
+            [tempArray replaceObjectAtIndex:index withObject:[NSNumber numberWithInt:i]];
+            if ([self isValidCheckSum:tempArray])
+            {
+                return [NSArray arrayWithArray:tempArray];
+            }
+        }
+        return accountNumber;
+    }
 }
 
 //

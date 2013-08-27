@@ -38,6 +38,7 @@
     NSArray *temArray6 = @[@[@3, @3, @3, @3, @9, @3, @3, @3, @3]];
     NSArray *temArray7 = @[@1, @1, @1, @1, @1, @1, @1, @1, @1];
     NSArray *temArray7a = @[@"?", @1, @1, @1, @1, @1, @1, @1, @1];
+    NSArray *temArray7b = @[@"?", @"?", @1, @1, @1, @1, @1, @1, @1];
     NSArray *temArray8 = @[@[@7, @1, @1, @1, @1, @1, @1, @1, @1]];
     NSArray *temArray8a = @[@7, @1, @1, @1, @1, @1, @1, @1, @1];
     NSArray *temArray9 = @[@5, @5, @5, @5, @5, @5, @5, @5, @5];
@@ -126,6 +127,8 @@
     //checking for equality
     STAssertEqualObjects(temArray3, [OCRReader fixByCheckSum:temArray4], @"FixByCheckSum failed");
     STAssertEqualObjects(temArray8a, [OCRReader fixByCheckSum:temArray7a], @"FixByCheckSum failed");
+    //checking for more than one illegal character
+    STAssertEqualObjects(temArray7b, [OCRReader fixByCheckSum:temArray7b], @"FixByCheckSum failed");
     
     //*************************************************************
     //[OCRReader fixByCheckSum]
